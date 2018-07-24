@@ -1,5 +1,10 @@
 const TelegramBot = require('node-telegram-bot-api');
-const token = '630544516:AAHKSoTLdv7559DCtDjNVtmT3yvdjllofqo';
+
+const fs = require('fs');
+const tokenJson = JSON.parse(fs.readFileSync('./token.json', 'utf8'));
+
+const token = tokenJson['token'];
+console.log('token : ' + token);
 const bot = new TelegramBot(token, {polling: true});
 
 const wellComeMsg_candidates=['hi', ];
