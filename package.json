@@ -1,0 +1,22 @@
+{
+  "name": "remiit-telegram-bot-node",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sw-yoonsung/remiit-telegram-bot-node.git"
+  },
+  "author": "sw-yoonsung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sw-yoonsung/remiit-telegram-bot-node/issues"
+  },
+  "homepage": "https://github.com/sw-yoonsung/remiit-telegram-bot-node#readme",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
