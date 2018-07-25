@@ -7,7 +7,7 @@ Queue.prototype.add = function (record) {
     this.data.unshift(record);
 };
 
-Queue.prototype.remove = function () {
+Queue.prototype.pop = function () {
     if(this.data.length >0) {
         var last = this.last();
         this.data.pop();
