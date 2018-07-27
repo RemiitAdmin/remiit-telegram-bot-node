@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+    finally:
+      - echo install is finished!
+  pre_build:
+    commands:
+      - echo Download token.json on the config directory...
+      - curl -o config/token.json https://s3-ap-northeast-1.amazonaws.com/bluepan-development/remiit-telegram-bot/nodejs/token.json
+    finally:
+      - echo pre_build is finished!
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Compiling the Node.js code
+      - npm test
+    finally:
+      - echo build and test is finished!
+  post_build:
+    commands:
+      - echo Build completed on `date`
