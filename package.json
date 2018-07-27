@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "node app/index.js",
     "dev": "node app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

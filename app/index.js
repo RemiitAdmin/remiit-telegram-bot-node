@@ -8,6 +8,7 @@ const token = tokenJson['token'];
 logInfo('token : ' + token);
 const bot = new TelegramBot(token, {polling: true});
 
+const objectTypes = require('object-types');
 
 // ============== load config =======================
 const configJson                    = JSON.parse(fs.readFileSync(__base_dir + '/config/config.json', 'utf8'));
@@ -29,6 +30,7 @@ const filterResponseMessage         = filterConfig['filterResponseMessage'];
 // config for keyboard
 const keyboard                      = configJson['keyboard'];
 let keyboardMap                     = new Map();
+let keyboardResponseMap             = configKeyboard(keyboard);
 
 // config for funnyTalk
 const funnyTalk                     = configJson['funnyTalk'];
@@ -38,6 +40,7 @@ const Queue = require('./queue.js');
 let welcomeMsgQ = new Queue();
 let funnyMsgQ   = new Queue();
 let filterWarningMsgQ = new Queue();
+
 
 
 bot.on('polling_error', (error) => {
@@ -90,7 +93,25 @@ bot.onText(/\/start/, (msg) => {
 bot.on('message', (msg) => {
     //* private chat
     if(isPrivateChat(msg)){
+        if(msg.text.toLowerCase().startsWith("\/")){
+            keyboardMap.forEach( (value, key)=> {
+                var _keyboard = {
+                    "reply_markup": {
+                        "keyboard" : value
+                    },
+                };
+                if(msg.text.toLowerCase().includes(key.toLowerCase())){
+                    bot.sendMessage(msg.chat.id, "select the button.", _keyboard);
+                }
 
+            });
+        }else {
+            keyboardResponseMap.forEach((value, key) => {
+                if(msg.text === key) {
+                    sendMessage(bot, msg, value);
+                }
+            });
+        }
     }
 
     //new chat member
@@ -121,6 +142,61 @@ bot.on('message', (msg) => {
         responseFunnyTalk(bot, msg);
     }
 });
+
+function configKeyboard(jsonObject){
+    var keys = Object.keys(jsonObject);
+    var responseMap = new Map();
+    keys.forEach(key => {
+        // var curKeyboardResponseMap = new Map();
+        var curResult = makeKeyboard(jsonObject[key]);
+        const curKeyboard = curResult['keyboardResult'];
+        const curKeyboardResponseMap = curResult['keyboardResponseMap'];
+        keyboardMap.set(key, curKeyboard );
+        // keyboardMap.set(key, JSON.stringify(curKeyboard) );
+        // responseMap = Object.assign(responseMap, curKeyboardResponseMap);
+        curKeyboardResponseMap.forEach( (mapValue, mapKey, mapObj) => {
+            responseMap.set(mapKey, mapValue);
+        })
+        // var mapKeys = Object.keys(curKeyboardResponseMap);
+        // mapKeys.forEach(mapKey => {
+        //     responseMap.set(mapKey, curKeyboardResponseMap[mapKey]);
+        // });
+    });
+    return responseMap;
+}
+
+function makeKeyboard(arr) {
+    var keyboardResponseMap = new Map();
+    var type = objectTypes(arr);
+    var keyboardResult = [];
+    arr.forEach(obj => {
+        type = objectTypes(obj);
+        if (type === 'object') {
+            let keys = Object.keys(obj);
+            keyboardResult.push(keys);//
+            keys.forEach(key => {
+                keyboardResponseMap.set(key, obj[key]);
+                console.log(key + " : " + obj[key]);
+            });
+        } else if (type === 'array') {
+            // second depth for one line multi button.
+            var subKeyboard = [];
+            obj.forEach(subObj => {
+                let subType = objectTypes(subObj);
+                if (subType === 'object') {
+                    let keys = Object.keys(subObj);
+                    keys.forEach(key => {
+                        subKeyboard.push(key);//
+                        keyboardResponseMap.set(key, subObj[key]);
+                        console.log(key + " : " + subObj[key]);
+                    });
+                }
+            });
+            keyboardResult.push(subKeyboard);
+        }
+    });
+    return {keyboardResult, keyboardResponseMap};
+}
 
 function responseFunnyTalk(bot, msg) {
     for(const key in funnyTalk){
