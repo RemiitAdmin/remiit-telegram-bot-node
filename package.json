@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "node app/index.js",
+    "start": "node app/index.js",
     "dev": "node app/index.js",
-    "test": "echo \"test is started.\""
+    "test": "mocha test/token-test.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
     "fs": "0.0.1-security",
     "node-telegram-bot-api": "^0.30.0",
     "object-types": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
