@@ -79,17 +79,6 @@ function generateKeyboard(jsonArr){
     }
 }
 
-bot.onText(/\/start/, (msg) => {
-    if(isPrivateChat(msg)) {
-        bot.sendMessage(msg.chat.id, "Welcome", {
-            "reply_markup": {
-                "keyboard": [["Sample text", "Second sample"], ["Keyboard"], ["I'm robot"]]
-            },
-
-        });
-    }
-});
-
 bot.on('message', (msg) => {
     //* private chat
     if(isPrivateChat(msg)){
