@@ -107,7 +107,8 @@ Keyboard Example
   }
 ```
 
-This keyboard view is follow.
+This keyboard view function examples are follow.
+
 ![1](image/Screen_Shot_1.png)
 ![2](image/Screen_Shot_2.png)
 ![3](image/Screen_Shot_3.png)
