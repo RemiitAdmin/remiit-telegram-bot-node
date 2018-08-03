@@ -7,7 +7,11 @@ const tokenJson = JSON.parse(fs.readFileSync(__base_dir + '/config/token.json', 
 const token = tokenJson['token'];
 logInfo('token : ' + token);
 const bot = new TelegramBot(token, {polling: true});
-
+let botId;
+bot.getMe().then(msg => {
+   logInfo("Bot Info : " + "id[" + msg.id + "]" + "name[" + msg.first_name + "]");
+   botId = msg.id;
+});
 const objectTypes = require('object-types');
 
 // ============== load config =======================
@@ -127,11 +131,9 @@ bot.on('message', (msg) => {
         bot.deleteMessage(msg.chat.id, msg.message_id);
     }
 
-    if(msg.from.id !== bot.getMe().id) { // no filter if msg sender is bot.
-        if (!containsBlacklist(msg)) {
-            logInfo('chat[' + msg.chat.id + '] sender[' + getUserName(msg.from) + '] ' + "\nmessage : " + msg.text);
-            responseFunnyTalk(bot, msg);
-        }
+    if (!containsBlacklist(msg)) {
+        logInfo('chat[' + msg.chat.id + '] sender[' + getUserName(msg.from) + '] ' + "\nmessage : " + msg.text);
+        responseFunnyTalk(bot, msg);
     }
 });
 
