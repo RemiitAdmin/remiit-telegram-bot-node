@@ -126,9 +126,12 @@ bot.on('message', (msg) => {
         onRemoveMember(msg);
         bot.deleteMessage(msg.chat.id, msg.message_id);
     }
-    if (!containsBlacklist(msg)) {
-        logInfo('chat[' + msg.chat.id + '] sender[' + getUserName(msg.from)+ '] ' + "\nmessage : " + msg.text);
-        responseFunnyTalk(bot, msg);
+
+    if(msg.from.id !== bot.getMe().id) { // no filter if msg sender is bot.
+        if (!containsBlacklist(msg)) {
+            logInfo('chat[' + msg.chat.id + '] sender[' + getUserName(msg.from) + '] ' + "\nmessage : " + msg.text);
+            responseFunnyTalk(bot, msg);
+        }
     }
 });
 
