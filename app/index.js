@@ -131,11 +131,29 @@ bot.on('message', (msg) => {
         bot.deleteMessage(msg.chat.id, msg.message_id);
     }
 
-    if (!containsBlacklist(msg)) {
-        logInfo('chat[' + msg.chat.id + '] sender[' + getUserName(msg.from) + '] ' + "\nmessage : " + msg.text);
-        responseFunnyTalk(bot, msg);
-    }
+
+    const chatMember = getChatMember(msg);
+    chatMember.then(_chatMember => {
+        if(_chatMember.status !== "administrator"){
+           
+            if (!containsBlacklist(msg)) {
+            }
+        }else{
+            logInfo("user["+getUserName(msg.from)+"] is a administrator");
+        }
+    });
+  
+    logInfo('chat[' + msg.chat.id + '] sender[' + getUserName(msg.from) + '] ' + "\nmessage : " + msg.text);
+    responseFunnyTalk(bot, msg);
 });
+
+function getChatMember(msg){
+    const chat_id = msg.chat.id;
+    const user_id = msg.from.id;
+
+    return bot.getChatMember(chat_id, user_id); //Promise
+}
+
 
 function configKeyboard(jsonObject){
     var keys = Object.keys(jsonObject);

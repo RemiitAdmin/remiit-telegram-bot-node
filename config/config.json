@@ -3,38 +3,16 @@
     "queueBound": 2,
     "queueBatchRemoveSize": 1
   },
+  
   "welcome": {
     "welcomePreMsg": "Hi ",
-    "welcomePostMsg": "Welcome to Remiit. Thanks for concerning Remiit project.:)\n\nYou can lookup the F&Q if you send private message to me(bot) and type \"\/start.\" in the private chat."
+    "welcomePostMsg": "Welcome to Remiit. Thanks for joining the REMIIT Community!!\n\n If you have questions, shoot them away. You can find ICO Information on the Pinned Post. \n\nFor PR Proposals, please email media@remiit.io"
   },
   "filter": {
     "filterResponseMessage": ". You cannot send message which contains at least one among url, video media, audio media and photo on this chat."
   },
-  "keyboard": {
-    "\/key": [
-      {
-        "key1": "resp1"
-      },
-      [
-        {
-          "key2_1": "resp2_1"
-        },
-        {
-          "key2_2": "resp2_2"
-        }
-      ],
-      {
-        "\/next" : "please press next button."
-      }
-    ],
-    "\/next" : [
-      {
-        "NextKey1": "Next1"
-      }
-    ]
-  },
+  
   "funnyTalk": {
-    "query1": "hahaha",
-    "query2": "merong!! >.<!"
+    "fascqcq121cqc": "hahaha"
   }
 }
