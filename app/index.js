@@ -134,15 +134,17 @@ bot.on('message', (msg) => {
 
     const chatMember = getChatMember(msg);
     chatMember.then(_chatMember => {
-        if(_chatMember.status === "administrator"){
-            logInfo("user["+getUserName(msg.from)+"] is a administrator");
+       logInfo(getUserName(msg.from) + " : " + _chatMember.status);
+        //if(_chatMember.status !== "administrator" || getUserId(msg.from)==="474898451"){
+        if(_chatMember.status === "administrator" || _chatMember.status === "creator"){ 
+         
+        }else{   
             if (!containsBlacklist(msg)) {
-            }
-        }else{
-            logInfo("user["+getUserName(msg.from)+"] is a administrator");
+        }
+            
         }
     });
-  
+    logInfo("user2["+getUserId(msg.from)+"] is a general");
     logInfo('chat[' + msg.chat.id + '] sender[' + getUserName(msg.from) + '] ' + "\nmessage : " + msg.text);
     responseFunnyTalk(bot, msg);
 });
@@ -241,7 +243,8 @@ function containsBlacklist(msg) {
         logInfo('Message[' + msg.message_id + '] is removed on the chat[' + msg.chat.id + ']');
 
         //* response to warn to do not upload filtering target messages.
-        let sentMessage = sendMessage(bot, msg, getUserName(msg.from) + filterResponseMessage);
+        //let sentMessage = sendMessage(bot, msg, getUserName(msg.from) + filterResponseMessage);   /*min 경고메세지 노출 ㄴㄴ 
+        let sentMessage = sendMessage(bot, msg );
         sentMessage.then((message) => {
             filterWarningMsgQ.add(message);
             if (filterWarningMsgQ.size() > 1) {
@@ -305,6 +308,11 @@ function getUserName(user) {
     return user.last_name === undefined ? user.first_name : user.first_name + ' ' + user.last_name;
 }
 
+
+function getUserId(user) { // Min*
+    return user.id;
+}
+
 function onNewChatMember(msg) {
     let new_members = '';
     msg.new_chat_members.forEach((member, idx) => {
@@ -342,6 +350,15 @@ function sendMessage(bot, msg, text) {
     }
 }
 
+function sendMessage(bot, msg) {
+    if (text !== undefined && text !== "") {
+        const returnValue = bot.sendMessage(msg.chat.id, text)
+            .catch((error) => {
+                logErr(error);
+            });
+        return returnValue;
+    }
+}
 function isPrivateChat(msg) {
     return msg.chat.type.toLowerCase() === "private";
 }
