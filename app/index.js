@@ -134,8 +134,8 @@ bot.on('message', (msg) => {
 
     const chatMember = getChatMember(msg);
     chatMember.then(_chatMember => {
-        if(_chatMember.status !== "administrator"){
-           
+        if(_chatMember.status === "administrator"){
+            logInfo("user["+getUserName(msg.from)+"] is a administrator");
             if (!containsBlacklist(msg)) {
             }
         }else{

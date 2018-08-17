@@ -8,9 +8,7 @@
     "welcomePreMsg": "Hi ",
     "welcomePostMsg": "Welcome to Remiit. Thanks for joining the REMIIT Community!!\n\n If you have questions, shoot them away. You can find ICO Information on the Pinned Post. \n\nFor PR Proposals, please email media@remiit.io"
   },
-  "filter": {
-    "filterResponseMessage": ". You cannot send message which contains at least one among url, video media, audio media and photo on this chat."
-  },
+  
   
   "funnyTalk": {
     "fascqcq121cqc": "hahaha"
