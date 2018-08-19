@@ -244,7 +244,7 @@ function containsBlacklist(msg) {
 
         //* response to warn to do not upload filtering target messages.
         //let sentMessage = sendMessage(bot, msg, getUserName(msg.from) + filterResponseMessage);   /*min 경고메세지 노출 ㄴㄴ 
-        let sentMessage = sendMessage(bot, msg );
+        //let sentMessage = sendMessage(bot, msg );
         sentMessage.then((message) => {
             filterWarningMsgQ.add(message);
             if (filterWarningMsgQ.size() > 1) {
@@ -350,15 +350,7 @@ function sendMessage(bot, msg, text) {
     }
 }
 
-function sendMessage(bot, msg) {
-    if (text !== undefined && text !== "") {
-        const returnValue = bot.sendMessage(msg.chat.id, text)
-            .catch((error) => {
-                logErr(error);
-            });
-        return returnValue;
-    }
-}
+
 function isPrivateChat(msg) {
     return msg.chat.type.toLowerCase() === "private";
 }
