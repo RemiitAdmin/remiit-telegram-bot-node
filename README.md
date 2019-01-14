@@ -5,7 +5,7 @@
 ### Install
 1. git clone    
 2. install nodejs (recommended version 8.11.3 LTS), npm (if you installed LTS nodejs, npm is already accompanied with it.)
-3. `npm install`
+3. `npm instal`
 4. Place your token.json file on the path `${project_root_dir}/config/token.json`
    * token.json file form example
         ```json
