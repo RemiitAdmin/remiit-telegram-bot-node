@@ -6,7 +6,7 @@
   
   "welcome": {
     "welcomePreMsg": "Hi ",  
-   "welcomePostMsg": "Welcome and thanks for joining the REMIIT Community!!\n\n If you have questions, shoot them away. You can find a brief description about us on the pinned post.\n\nFor PR Proposals, please email media@remiit.io\n\n Bounty&Airdrop distribution before Feb 28"
+   "welcomePostMsg": "Welcome to the REMIIT Community!\n\n Make sure to check our pinned post for more information."
   }, 
   "filter": {
     "filterResponseMessage": ". You cannot send message which contains at least one among url, video media, audio media and photo on this chat. "
